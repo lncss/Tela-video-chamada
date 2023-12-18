@@ -1,6 +1,7 @@
 /*window.alert("Hello bitches!");
 window.confirm("Funcionou?");
 window.prompt("Qual o seu nome?");*/
+import { db, collection, addDoc, onSnapshot, doc, getDoc, updateDoc, deleteDoc } from "./firebase.js";
 
 function logar(){
     var login = document.getElementById("login").value;
