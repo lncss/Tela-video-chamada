@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="icon" type="image/png" href="/images/camera-de-video.png">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="page">
+        <form method="POST" class="formLogin">
+            <h1>Cadastro</h1>
+            <p>Digite os seus dados no campo abaixo.</p>
+            <label for="text">Nome Completo</label>
+            <input id="nome" type="text" placeholder="Digite seu nome completo" autofocus="true" />
+            <label for="email">E-mail</label>
+            <input id="login" type="email" placeholder="Digite seu e-mail" autofocus="true" />
+            <label for="password">Senha</label>
+            <input id="senha" type="password" placeholder="Digite sua senha" />
+            <input type="submit"  onclick="cadastrar(); return false" value="Salvar" class="btn" />
+        </form>
+    </div>
+    <script src = "script.js"></script>
+    
+</body>
+</html>
