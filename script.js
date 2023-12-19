@@ -1,60 +1,68 @@
-/*window.alert("Hello bitches!");
-window.confirm("Funcionou?");
-window.prompt("Qual o seu nome?");*/
+import { db, collection, addDoc, getDocs, onSnapshot } from "./firebase.js";
 
-import { db, collection, addDoc, onSnapshot } from "./firebase.js";
+const formCadastro = document.getElementById("formC");
+const formLogin = document.getElementById("formL");
 
-window.onload = () => {
+if (formCadastro != null) {
+  formCadastro.onsubmit = async (event) => {
+    event.preventDefault();
 
-    const formCadastro = document.getElementById("formC");
-    const formLogin = document.getElementById("formL");
+    let dados = {
+      nome: document.getElementById("nome").value,
+      email: document.getElementById("login").value,
+      senha: document.getElementById("senha").value,
+    };
 
-    formCadastro.onsubmit = async (event) => {
-        event.preventDefault();
+    try {
+      await addDoc(collection(db, "videocall"), {
+        nome: dados.nome,
+        email: dados.email,
+        senha: dados.senha,
+      });
 
-        let dados = {
-            nome: document.getElementById("nome").value,
-            email: document.getElementById("login").value,
-            senha: document.getElementById("senha").value
-        }
-
-        try {
-
-            await addDoc(collection(db, "videocall"), {
-              nome: dados.nome,
-              email: dados.email,
-              senha: dados.senha,
-            });
-      
-            alert("Usuário cadastrado com sucesso!");
-            location.href = "index.html";
-          } catch (error) {
-            console.error("Error adding document: ", error);
-          }
+      alert("Usuário cadastrado com sucesso!");
+      location.href = "index.html";
+    } catch (error) {
+      console.error("Error adding document: ", error);
     }
+  };
+}
 
-    formLogin.onsubmit = async (event) => {
-        event.preventDefault();
+if (formLogin != null) {
+  formLogin.onsubmit = async (event) => {
+    event.preventDefault();
 
-        let input = {
-            email: document.getElementById("login").value,
-            senha: document.getElementById("senha").value
-        }
+    let items = [];
+    let login = false;
 
-        onSnapshot(collection(db, "videocall"), (snapshot) => {
-            const items = snapshot.docs.data();
+    let input = {
+      email: document.getElementById("login1").value,
+      senha: document.getElementById("senha1").value,
+    };
 
-            for (let i = 0; i < items.length; i++) {
-                const item = items[i];
-                if (item.email == input.email && item.senha == input.senha) {
-                    alert("Sucesso!");
-                    location.href = "home.html";
-                } else {
-                    alert("Usuário ou senha incorretos!");
-                }
-            }
+    const querySnapshot = await getDocs(collection(db, "videocall"));
+
+      querySnapshot.forEach((doc) => {
+        items.push({
+          id: doc.id,
+          ...doc.data(),
         });
+      });
 
-        
-    }
-};
+      for(let i = 0; i < items.length; i++){
+        if(items[i].email === input.email && items[i].senha === input.senha){
+          login = true;
+          location.href = "home.html";
+          break;
+        } else {
+            login = false;
+        }
+      }
+
+        if(login === true){
+            alert("Usuário logado com sucesso!");
+        } else {
+            alert("Usuário ou senha inválidos!");
+        }
+  };
+}
