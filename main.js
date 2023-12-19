@@ -29,6 +29,7 @@ let joinAndDisplayLocalStream = async () => {
 let joinStream = async () => {
     await joinAndDisplayLocalStream()
     document.getElementById('join-btn').style.display = 'none'
+    document.getElementById('logout').style.display = 'none'
     document.getElementById('stream-controls').style.display = 'flex'
 }
 
@@ -70,6 +71,7 @@ let leaveAndRemoveLocalStream = async () => {
 
     await client.leave()
     document.getElementById('join-btn').style.display = 'block'
+    document.getElementById('logout').style.display = 'block'
     document.getElementById('stream-controls').style.display = 'none'
     document.getElementById('video-streams').innerHTML = ''
 }
@@ -97,7 +99,7 @@ let toggleCamera = async (e) => {
         e.target.style.backgroundColor = '#EE4B2B'
     }
 }
-
+    
 
 document.getElementById('join-btn').addEventListener('click', joinStream)
 document.getElementById('leave-btn').addEventListener('click', leaveAndRemoveLocalStream)

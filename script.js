@@ -8,6 +8,7 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
+  signOut
 } from "./firebase.js";
 
 const formCadastro = document.getElementById("formC");
@@ -107,4 +108,22 @@ if (formEsqueci != null) {
       alert("Erro ao enviar o e-mail para redefinir a senha!");
     }
   };
+}
+
+function logoutUser() {
+  auth.signOut().then(() => {
+    alert("Usuário deslogado com sucesso!");
+    location.href = "index.html"; 
+  }).catch((error) => {
+    console.error("Error signing out: ", error);
+    alert("Erro ao deslogar o usuário!");
+  });
+}
+
+const logoutButton = document.getElementById("logout"); 
+
+if (logoutButton != null) {
+  logoutButton.addEventListener("click", () => {
+    logoutUser(); 
+  });
 }
