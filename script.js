@@ -1,4 +1,14 @@
-import { db, collection, addDoc, getDocs, onSnapshot, auth, createUserWithEmailAndPassword, sendPasswordResetEmail } from "./firebase.js";
+import {
+  db,
+  collection,
+  addDoc,
+  getDocs,
+  onSnapshot,
+  auth,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "./firebase.js";
 
 const formCadastro = document.getElementById("formC");
 const formLogin = document.getElementById("formL");
@@ -15,11 +25,11 @@ if (formCadastro != null) {
     };
 
     try {
-      await addDoc(collection(db, "videocall"), {
-        nome: dados.nome,
-        email: dados.email,
-        senha: dados.senha,
-      });
+      //   await addDoc(collection(db, "videocall"), {
+      //     nome: dados.nome,
+      //     email: dados.email,
+      //     senha: dados.senha,
+      //   });
 
       await createUserWithEmailAndPassword(auth, dados.email, dados.senha);
 
@@ -43,38 +53,47 @@ if (formLogin != null) {
       senha: document.getElementById("senha1").value,
     };
 
-    const querySnapshot = await getDocs(collection(db, "videocall"));
-
-    querySnapshot.forEach((doc) => {
-      items.push({
-        id: doc.id,
-        ...doc.data(),
-      });
-    });
-
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].email === input.email && items[i].senha === input.senha) {
-        login = true;
-        location.href = "home.html";
-        break;
-      } else {
-        login = false;
-      }
-    }
-
-    if (login === true) {
+    try {
+      await signInWithEmailAndPassword(auth, input.email, input.senha);
       alert("Usuário logado com sucesso!");
-    } else {
+      location.href = "home.html";
+    } catch (error) {
+      console.error("Error signing in: ", error);
       alert("Usuário ou senha inválidos!");
     }
+
+    // const querySnapshot = await getDocs(collection(db, "videocall"));
+
+    // querySnapshot.forEach((doc) => {
+    //   items.push({
+    //     id: doc.id,
+    //     ...doc.data(),
+    //   });
+    // });
+
+    // for (let i = 0; i < items.length; i++) {
+    //   if (items[i].email === input.email && items[i].senha === input.senha) {
+    //     login = true;
+    //     location.href = "home.html";
+    //     break;
+    //   } else {
+    //     login = false;
+    //   }
+    // }
+
+    // if (login === true) {
+    //   alert("Usuário logado com sucesso!");
+    // } else {
+    //   alert("Usuário ou senha inválidos!");
+    // }
   };
 }
 
 if (formEsqueci != null) {
-    formEsqueci.onsubmit = async (event) => {
-      event.preventDefault();
-  
-      const email = document.getElementById("emailEsqueci").value;
+  formEsqueci.onsubmit = async (event) => {
+    event.preventDefault();
+
+    const email = document.getElementById("emailEsqueci").value;
 
     try {
       // Enviar e-mail para redefinir a senha
@@ -87,7 +106,5 @@ if (formEsqueci != null) {
       console.error("Error sending password reset email: ", error);
       alert("Erro ao enviar o e-mail para redefinir a senha!");
     }
-  
-    };
-  }
-  
+  };
+}
