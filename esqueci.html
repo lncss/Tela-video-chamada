@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esqueci minha senha</title>
+
+    <!-- Inclua os scripts do Firebase -->
+    <!-- Os scripts de firebase-app.js, firebase-analytics.js e firebase-auth.js são necessários -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+
+    <link rel="icon" type="image/png" href="/images/camera-de-video.png" />
+    <link rel="stylesheet" href="main.css" />
+    <script src="./firebase.js"></script>
+    <script src="./script.js"></script>
+  </head>
+  <body>
+    <div class="page">
+      <form method="post" class="formLogin" id="formEsqueci">
+        <h1>Esqueci minha senha</h1>
+        <p>Digite o seu e-mail para redefinir a senha.</p>
+        <label for="emailEsqueci">E-mail</label>
+        <input id="emailEsqueci" type="email" placeholder="Digite seu e-mail" />
+        <a href="/index.html">Voltar para login</a>
+        <input type="submit" value="Redefinir Senha" class="btn" />
+      </form>
+    </div>
+  </body>
+</html>

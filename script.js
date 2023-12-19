@@ -1,7 +1,8 @@
-import { db, collection, addDoc, getDocs, onSnapshot } from "./firebase.js";
+import { db, collection, addDoc, getDocs, onSnapshot, auth, createUserWithEmailAndPassword, sendPasswordResetEmail } from "./firebase.js";
 
 const formCadastro = document.getElementById("formC");
 const formLogin = document.getElementById("formL");
+const formEsqueci = document.getElementById("formEsqueci");
 
 if (formCadastro != null) {
   formCadastro.onsubmit = async (event) => {
@@ -19,6 +20,8 @@ if (formCadastro != null) {
         email: dados.email,
         senha: dados.senha,
       });
+
+      await createUserWithEmailAndPassword(auth, dados.email, dados.senha);
 
       alert("Usuário cadastrado com sucesso!");
       location.href = "index.html";
@@ -42,27 +45,49 @@ if (formLogin != null) {
 
     const querySnapshot = await getDocs(collection(db, "videocall"));
 
-      querySnapshot.forEach((doc) => {
-        items.push({
-          id: doc.id,
-          ...doc.data(),
-        });
+    querySnapshot.forEach((doc) => {
+      items.push({
+        id: doc.id,
+        ...doc.data(),
       });
+    });
 
-      for(let i = 0; i < items.length; i++){
-        if(items[i].email === input.email && items[i].senha === input.senha){
-          login = true;
-          location.href = "home.html";
-          break;
-        } else {
-            login = false;
-        }
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].email === input.email && items[i].senha === input.senha) {
+        login = true;
+        location.href = "home.html";
+        break;
+      } else {
+        login = false;
       }
+    }
 
-        if(login === true){
-            alert("Usuário logado com sucesso!");
-        } else {
-            alert("Usuário ou senha inválidos!");
-        }
+    if (login === true) {
+      alert("Usuário logado com sucesso!");
+    } else {
+      alert("Usuário ou senha inválidos!");
+    }
   };
 }
+
+if (formEsqueci != null) {
+    formEsqueci.onsubmit = async (event) => {
+      event.preventDefault();
+  
+      const email = document.getElementById("emailEsqueci").value;
+
+    try {
+      // Enviar e-mail para redefinir a senha
+      await sendPasswordResetEmail(auth, email);
+
+      alert("Um e-mail foi enviado para redefinir a senha!");
+      // Redirecionar para a página de login ou outra página após enviar o e-mail
+      location.href = "index.html"; // ou a página que deseja redirecionar
+    } catch (error) {
+      console.error("Error sending password reset email: ", error);
+      alert("Erro ao enviar o e-mail para redefinir a senha!");
+    }
+  
+    };
+  }
+  
