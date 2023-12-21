@@ -13,6 +13,13 @@
 <body>
     <button id="join-btn">Parcticipar da Reunião</button>
     <button id="logout">Deslogar</button>
+
+    <form method="post" class="formE" id="forms">
+        <label for="nome2">Nome</label>
+        <input id="nome2" type="text" placeholder="Digite seu nome" autofocus="true" autocomplete="text" />
+        <input type="submit" value="Enviar" class="btn" />
+    </form>
+
     <div id="stream-wrapper">
         <div id="video-streams"></div>
         <div id="stream-controls">
@@ -24,5 +31,5 @@
 </body>
 
 <script src="AgoraRTC_N-4.20.0.js"></script>
-<script src="main.js"></script>
+<script type="module" src="main.js"></script>
 </html>

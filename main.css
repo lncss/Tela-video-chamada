@@ -6,10 +6,10 @@ body{
 
 #join-btn{
     position: fixed;
-    top: 50%;
+    top: 65%;
     left: 50%;
     margin-top: -50px;
-    margin-left: -100px;
+    margin-left: -120px;
     font-size: 18px;
     padding: 20px 40px;
 }
@@ -29,8 +29,66 @@ body{
 }
 
 .video-player{
-    height: 100%;
+    height: 97%;
     width: 100%;
+    text-align: center;
+}
+
+#username {
+    margin-top: 2px;
+    margin-left: 2px;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.formE {
+    display: flex;
+    margin-top: 50px;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 7px;
+    padding: 40px;
+    box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
+    gap: 5px
+}
+
+.formE input {
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    margin-top: 5px;
+    border-radius: 4px;
+    transition: all linear 160ms;
+    outline: none;
+}
+
+
+.formE input:focus {
+    border: 1px solid #6c117b;
+}
+
+.formE label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn {
+    background-color: #6c117b;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    border: none !important;
+    transition: all linear 160ms;
+    cursor: pointer;
+    margin: 0 !important;
+
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    background-color: #f8c304;
+
 }
 
 button{
